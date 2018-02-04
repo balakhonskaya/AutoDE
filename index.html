@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AutoDE</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="field">
+            <img src="img/small/2.jpg" alt="img_1">
+            <p>You have entered the following prefix: </p>
+            <div id="field1"></div>
+            <!-- <input type="button" onclick="clearBasket()" value="Убрать из корзины"/> -->
+            <p>A car with this prefix is from:<p><div id="res"></div>
+        </div>
+     </div>
+        <script>
+
+            var catalog = [{id: 1, prefix: 'B', place: 'Berlin'}, 
+                           {id: 2, prefix: 'H', place: 'Hannover'},
+                           {id: 3, prefix: 'HH', place: 'Hamburg'},
+                           {id: 4, prefix: 'A', place: 'Augsburg (Bayern)'},
+                           {id: 5, prefix: 'AA', place: 'Aalen Ostalbkreis (BaWü)'},
+                           {id: 6, prefix: 'AB', place: 'Aschaffenburg (Bayern)'},
+                           {id: 7, prefix: 'ABG', place: 'Altenburger Land (Thür)'},
+                           {id: 8, prefix: 'AC', place: 'Aachen (NrWe)'},
+                           {id: 9, prefix: 'AE', place: 'Auerbach (Sachs)'},
+                           {id: 10, prefix: 'AIC', place: 'Aichach-Friedberg (Bayern)'},
+                           {id: 11, prefix: 'AK', place: 'Altenkirchen/Westwald (RhPf)'},
+                           {id: 12, prefix: 'AM', place: 'Amberg (Bayern)'},
+                           {id: 13, prefix: 'AN', place: 'Ansbach (Bayern)'},
+                           {id: 14, prefix: 'ANA', place: 'Annaberg (Sachs)'},
+                           {id: 15, prefix: 'ANG', place: 'Angemünde (Brandenburg)'},
+                           {id: 16, prefix: 'ANK', place: 'Anklam (MeVo)'},
+                           {id: 17, prefix: 'AÖ', place: 'Altötting (Bayern)'},
+                           {id: 18, prefix: 'AP', place: 'Apolda - Weimarer Land (Thür)'},
+                           {id: 19, prefix: 'APD', place: 'Apolda (Thür)'},
+                           {id: 20, prefix: 'ARN', place: 'Arnstadt (Thür)'},
+                           {id: 21, prefix: 'ART', place: 'Artern (Thür)'},
+                           {id: 22, prefix: 'AS', place: 'Amberg-Sulzbach (Bayern)'},
+                           {id: 23, prefix: 'ASL', place: 'Aschersleben (SaAn)'},
+                           {id: 24, prefix: 'ASZ', place: 'Aue-Schwarzenberg (Sachs)'},
+                           {id: 25, prefix: 'AT', place: 'Altentreptow (MeVo)'},
+                           {id: 26, prefix: 'AU', place: 'Aue (Sachs)'},
+                           {id: 27, prefix: 'AUR', place: 'Aurich (NiSa)'},
+                           {id: 28, prefix: 'AW', place: 'Bad Neuenahr-Ahrweiler (RhPf)'},
+                           {id: 29, prefix: 'AZ', place: 'Alzey-Worms (RhPf)'},
+                           {id: 30, prefix: 'AZE', place: 'Anhalt-Zerbst (SaAn)'},
+
+                           {id: 31, prefix: 'BA', place: 'Bamberg (Bayern)'},
+                           {id: 32, prefix: 'BAD', place: 'Baden-Baden (BaWü)'},
+                           {id: 33, prefix: 'BAR', place: 'Barnim (Brandenburg)'},
+                           {id: 34, prefix: 'BB', place: 'Böblingen (BaWü)'},
+                           {id: 35, prefix: 'BBG', place: 'Bernburg (SaAn)'},
+                           {id: 36, prefix: 'BBL', place: 'Brandenburg Landeregierung und Landtag'},
+                           {id: 37, prefix: 'BC', place: 'Biberach/Riß (BaWü)'},
+                           {id: 38, prefix: 'BD', place: 'Bundestag, Bundesrat, Bundesregierung'},
+                           {id: 39, prefix: 'BED', place: 'Brandenburgd-Erbisdorf (Sachs)'},
+                           {id: 40, prefix: 'BEL', place: 'Belzig (Brandenburg)'},
+                           {id: 41, prefix: 'BG', place: 'Bundesgrenzschutz'},
+                           {id: 42, prefix: 'BGL', place: 'Berchtesgadener Land (Bayern)'},
+                           {id: 43, prefix: 'BI', place: 'Bielefeld (NrWe)'},
+                           {id: 44, prefix: 'BIT', place: 'Bitburg-Prüm (RhPf)'},
+                           {id: 45, prefix: 'BIW', place: 'Bischofswerda (Sachs)'},
+                           {id: 46, prefix: 'BL', place: 'Zollernalbkreis in Balingen (BaWü)'},
+                           {id: 47, prefix: 'BLK', place: 'Burgenlandkreis (SaAn)'},
+                           {id: 48, prefix: 'BM', place: 'Erftkreis in Bergheim (NrWe)'},
+                           {id: 49, prefix: 'BN', place: 'Bonn (NrWe)'},
+
+                           {id: 50, prefix: 'BNA', place: 'Borna (Sachs)'},
+                           {id: 51, prefix: 'BO', place: 'Bochum (NrWe)'},
+                           {id: 52, prefix: 'BÖ', place: 'Bördekreis-Oschersleben (SaAn)'},
+                           {id: 53, prefix: 'BOR', place: 'Borken in Ahaus (NrWe)'},
+                           {id: 54, prefix: 'BOT', place: 'Bottrop (NrWe)'},
+                           {id: 55, prefix: 'BP', place: 'Bundespolizei'},
+                           {id: 56, prefix: 'BRA', place: 'Wesermarsch in Brake (NiSa)'},
+                           {id: 57, prefix: 'BRB', place: 'Brandenburg (Brandenburg)'},
+                           {id: 58, prefix: 'BRG', place: 'Burg (SaAn)'},
+                           {id: 59, prefix: 'BS', place: 'Braunschweig (NiSa)'},
+                           {id: 60, prefix: 'BSK', place: 'Beeskow (Brandenburg)'},
+                           {id: 61, prefix: 'BT', place: 'Bayernreuth (Bayern)'},
+                           {id: 62, prefix: 'BTF', place: 'Bitterfeld (SaAn)'},
+                           {id: 63, prefix: 'BÜS', place: 'Büsingen am Hochrhein (BaWü)'},
+                           {id: 64, prefix: 'BÜZ', place: 'Bützow (MeVo)'},
+                           {id: 65, prefix: 'BW', place: 'Bundes-Wasser- und Schiffahrtsverwaltung'},
+                            
+                            {id: 66, prefix: 'BWL', place: 'Baden-Württemberg Landesregierung und Landtag'},
+                           {id: 67, prefix: 'BYL', place: 'Bayern Landesregierung und Landtag'},
+                           {id: 68, prefix: 'BZ', place: 'Bautzen (Sachs)'},
+                           {id: 69, prefix: 'C', place: 'Chemnitz (Sachs)'},
+                           {id: 70, prefix: 'CA', place: 'Calau (Brandenburg)'},
+                           {id: 71, prefix: 'CB', place: 'Cottbus (Brandenburg)'},
+                           {id: 72, prefix: 'CE', place: 'Celle (NiSa)'},
+                           {id: 73, prefix: 'CHA', place: 'Cham/Oberpfalz (Bayern)'},
+                           {id: 74, prefix: 'CLP', place: 'Cloppenburg (NiSa)'},
+                           {id: 75, prefix: 'CO', place: 'Coburg (Bayern)'},
+                           {id: 76, prefix: 'COC', place: 'Cochem-Zell/Mosel (RhPf)'},
+                           {id: 77, prefix: 'COE', place: 'Coesfeld/Westfalen (NrWe)'},
+                           {id: 78, prefix: 'CUX', place: 'Cuxhaven (NiSa)'},
+                           {id: 79, prefix: 'CW', place: 'Calw (BaWü)'},
+                           {id: 80, prefix: 'D', place: 'Düsseldorf (NrWe)'},
+                           {id: 81, prefix: 'DA', place: 'Darmstadt-Dieburg (Hess)'},
+                           {id: 82, prefix: 'DAH', place: 'Dachau (Bayern)'},
+                           {id: 83, prefix: 'DAN', place: 'Lüchow-Dannenberg (NiSa)'},
+                           {id: 84, prefix: 'DAU', place: 'Daun (Eifel) (RhPf)'},
+
+                           {id: 85, prefix: 'DB', place: 'Deutsche Bahn'},
+                           {id: 86, prefix: 'DBR', place: 'Bad Doberan (MeVo)'},
+                           {id: 87, prefix: 'DD', place: 'Dresden (Sachs)'},
+                           {id: 88, prefix: 'DE', place: 'Dessau (SaAn)'},
+                           {id: 89, prefix: 'DEG', place: 'Deggendorf (Bayern)'},
+                           {id: 90, prefix: 'DEL', place: 'Delmenhorst (NiSa)'},
+                           {id: 91, prefix: 'DGF', place: 'Dingolfing-Landau (Bayern)'},
+                           {id: 92, prefix: 'DH', place: 'Diepholz-Syke (NiSa)'},
+                           {id: 93, prefix: 'DL', place: 'Döbeln (Sachs)'},
+                           {id: 94, prefix: 'DLG', place: 'Dillingen/Donau (Bayern)'},
+                           {id: 95, prefix: 'DM', place: 'Demmin (MeVo)'},
+                           {id: 96, prefix: 'DN', place: 'Düren (NrWe)'},
+                           {id: 97, prefix: 'DO', place: 'Dortmund (NrWe)'},
+                           {id: 98, prefix: 'DON', place: 'Donau-Ries in Donauwörth (Bayern)'},
+                           {id: 99, prefix: 'DS', place: 'Dahme-Spreewald (Brandenburg)'},
+                           {id: 100, prefix: 'DU', place: 'Duisburg (NrWe)'},
+                           {id: 101, prefix: 'DÜW', place: 'Bad Dürkheim in Neustadt/Weinstraße (RhPf)'},
+                           {id: 102, prefix: 'DW', place: 'Dippoldiswalde-Weißeritzkreis (Sachs)'},
+                           {id: 103, prefix: 'DZ', place: 'Delitzsch (Sachs)'},
+                           {id: 104, prefix: 'E', place: 'Essen (NrWe)'},
+                           {id: 105, prefix: 'EB', place: 'Eilenburg (Sachs)'},
+                           {id: 106, prefix: 'EBE', place: 'Ebersberg (Bayern)'},
+                           {id: 107, prefix: 'ED', place: 'Erding (Bayern)'},
+                           {id: 108, prefix: 'EE', place: 'Elbe-Elster (Brandenburg)'},
+
+                           {id: 109, prefix: 'EF', place: 'Erfurt (Thür)'},
+                           {id: 110, prefix: 'EH', place: 'Eisenhüttenstadt (Brandenburg)'},
+                           {id: 111, prefix: 'EI', place: 'Eichstätt (Bayern)'},
+                           {id: 112, prefix: 'EIC', place: 'Eichsfeld (Thür)'},
+                           {id: 113, prefix: 'EIL', place: 'Eisleben (SaAn)'},
+                           {id: 114, prefix: 'EIS', place: 'Eisenberg (Thür)'},
+                           {id: 115, prefix: 'EL', place: 'Emsland in Meppen (NiSa)'},
+                           {id: 116, prefix: 'EM', place: 'Emmendingen (BaWü)'},
+                           {id: 117, prefix: 'EMD', place: 'Emden (NiSa)'},
+                           {id: 118, prefix: 'EMS', place: 'Rhein-Lahn-Kreis in Bad Ems (RhPf)'},
+                           {id: 119, prefix: 'EN', place: 'Ennepe-Ruhr-Kreis in Schwelm (NrWe)'},
+                           {id: 120, prefix: 'ER', place: 'Erlangen/Stadt (Bayern)'},
+                           {id: 121, prefix: 'ERB', place: 'Odenwaldkreis in Erbach (Hess)'},
+                           {id: 122, prefix: 'ERH', place: 'Erlangen-Höchstadt (Bayern)'},
+                           {id: 123, prefix: 'ES', place: 'Esslingen/Neckar (BaWü)'},
+                           {id: 124, prefix: 'ESA', place: 'Eisenach (Thür)'},
+                           {id: 125, prefix: 'ESW', place: 'Werra-Meißner-Kreis in Eschwege (Hess)'},
+                           {id: 126, prefix: 'EU', place: 'Euskirchen (NrWe)'},
+                           {id: 127, prefix: 'EW', place: 'Eberswalde (Brandenburg)'},
+                           {id: 128, prefix: 'F', place: 'Frankfurt/Main (Hess)'},
+                           {id: 129, prefix: 'FB', place: 'Wetteraukreis in Friedberg (Hess)'},
+                           {id: 130, prefix: 'FD', place: 'Fulda (Hess)'},
+
+                            {id: 131, prefix: 'FDS', place: 'Freudenstadt (BaWü)'},
+                           {id: 132, prefix: 'FF', place: 'Frankfurt/Oder (Brandenburg)'},
+                           {id: 133, prefix: 'FFB', place: 'Fürstenfeldbruck (Bayern)'},
+                           {id: 134, prefix: 'FG', place: 'Freiberg/Sachsen (Sachs)'},
+                           {id: 135, prefix: 'FI', place: 'Finsterwalde (Brandenburg)'},
+                           {id: 136, prefix: 'FL', place: 'Flensburg (SlHo)'},
+                           {id: 137, prefix: 'FLÖ', place: 'Flöha (Sachs)'},
+                           {id: 138, prefix: 'FN', place: 'Bodenseekreis in Friedrichshafen (BaWü)'},
+                           {id: 140, prefix: 'FO', place: 'Forchheim (Bayern)'},
+                           {id: 141, prefix: 'FOR', place: 'Forst (Brandenburg)'},
+                           {id: 142, prefix: 'FR', place: 'Freiburg/Breisgau (BaWü)'},
+                           {id: 143, prefix: 'FRG', place: 'Freyung-Grafenau (Bayern)'},
+                           {id: 144, prefix: 'FRI', place: 'Friesland in Jever (NiSa)'},
+                           {id: 145, prefix: 'FRW', place: 'Bad Freienwalde (Brandenburg)'},
+                           {id: 146, prefix: 'FS', place: 'Freising (Bayern)'},
+                           {id: 147, prefix: 'FT', place: 'Frankenthal/Pfalz (RhPf)'},
+                           {id: 148, prefix: 'FTL', place: 'Freital (Sachs)'},
+                           {id: 149, prefix: 'FÜ', place: 'Fürth (Bayern)'},
+                           {id: 150, prefix: 'FW', place: 'Fürstenwalde (Brandenburg)'},
+                           {id: 151, prefix: 'G', place: 'Gera (Thür)'},
+                           {id: 152, prefix: 'GA', place: 'Gardelegen (SaAn)'},
+
+                           {id: 153, prefix: 'GAP', place: 'Garmisch-Partenkirchen (Bayern)'},
+                           {id: 154, prefix: 'GC', place: 'Glauchau - Chemnitzer Land (Sachs)'},
+                           {id: 155, prefix: 'GDB', place: 'Gadebusch (MeVo)'},
+                           {id: 156, prefix: 'GE', place: 'Gelsenkirchen (NrWe)'},
+                           {id: 157, prefix: 'GER', place: 'Germersheim (RhPf)'},
+                           {id: 158, prefix: 'GF', place: 'Gifhorn (NiSa)'},
+                           {id: 159, prefix: 'GG', place: 'Groß-Gerau (Hess)'},
+                           {id: 160, prefix: 'GHA', place: 'Geithain (Sachs)'},
+                           {id: 161, prefix: 'GHC', place: 'Gräfenhainichen (SaAn)'},
+                           {id: 162, prefix: 'GI', place: 'Gießen (Hess)'},
+                           {id: 163, prefix: 'GL', place: 'Rheinisch-Bergischer Kreis in Bergisch Gladbach (NrWe)'},
+                           {id: 164, prefix: 'GM', place: 'Oberbergischer Kreis in Gummersbach (NrWe)'},
+                           {id: 165, prefix: 'GMN', place: 'Grimmen (MeVo)'},
+                           {id: 166, prefix: 'GNT', place: 'Genthin (SaAn)'},
+                           {id: 167, prefix: 'GÖ', place: 'Göttingen (NiSa)'},
+                           {id: 168, prefix: 'GP', place: 'Göppingen (BaWü)'},
+                           {id: 169, prefix: 'GR', place: 'Görlitz (Sachs)'},
+                           {id: 170, prefix: 'GRH', place: 'Grossenhain (Sachs)'},
+                           {id: 171, prefix: 'GRM', place: 'Grimma (Sachs)'},
+                           {id: 172, prefix: 'GRS', place: 'Gransee (Brandenburg)'},
+                           {id: 173, prefix: 'GRZ', place: 'Greiz (Thür)'},
+                           {id: 174, prefix: 'GS', place: 'Goslar (NiSa)'},
+                           {id: 175, prefix: 'GT', place: 'Gütersloh in Rheda-Wiedenbrück (NrWe)'},
+
+                           {id: 176, prefix: 'GTH', place: 'Gotha (Thür)'},
+                           {id: 177, prefix: 'GÜ', place: 'Güstrow (MeVo)'},
+                           {id: 178, prefix: 'GUB', place: 'Guben (Brandenburg)'},
+                           {id: 179, prefix: 'GVM', place: 'Grevesmühlen (MeVo)'},
+                           {id: 180, prefix: 'GW', place: 'Greifswald/Landkreis (MeVo)'},
+                           {id: 181, prefix: 'GZ', place: 'Günzburg (Bayern)'},
+                           {id: 182, prefix: 'HA', place: 'Hagen/Westfalen (NrWe)'},
+                           {id: 183, prefix: 'HAL', place: 'Halle/Saale (SaAn)'},
+                           {id: 184, prefix: 'HAM', place: 'Hamm/Westfalen (NrWe)'},
+                           {id: 185, prefix: 'HAS', place: 'Haßberge in Haßfurt (Bayern)'},
+                           {id: 186, prefix: 'HB', place: 'Hansestadt Bremen und Bremerhaven (Bre)'},
+                           {id: 187, prefix: 'HBN', place: 'Hildburghausen (Thür)'},
+                           {id: 188, prefix: 'HBS', place: 'Halberstadt (SaAn)'},
+                           {id: 189, prefix: 'HC', place: 'Hainichen (Sachs)'},
+                           {id: 190, prefix: 'HD', place: 'Rhein-Neckar-Kreis und Heidelberg (BaWü)'},
+                           {id: 191, prefix: 'HDH', place: 'Heidenheim/Brenz (BaWü)'},
+                           {id: 192, prefix: 'HDL', place: 'Haldensleben (SaAn)'},
+                           {id: 193, prefix: 'HE', place: 'Helmstedt (NiSa)'},
+                           {id: 194, prefix: 'HEF', place: 'Bad Hersfeld-Rotenburg (Hess)'},
+                           {id: 195, prefix: 'HEI', place: 'Dithmarschen in Heide/Holstein (SlHo)'},
+
+                           {id: 196, prefix: 'HEL', place: 'Hessen Landesregierung und Landtag'},
+                           {id: 197, prefix: 'HER', place: 'Herne (NrWe)'},
+                           {id: 198, prefix: 'HET', place: 'Hettstedt (SaAn)'},
+                           {id: 199, prefix: 'HF', place: 'Herford in Kirchlengern (NrWe)'},
+                           {id: 200, prefix: 'HG', place: 'Hochtaunuskreis in Bad Homburg v.d.H. (Hess)'},
+                           {id: 201, prefix: 'HGN', place: 'Hagenow (MeVo)'},
+                           {id: 202, prefix: 'HGW', place: 'Hansestadt Greifswald (MeVo)'},
+                           {id: 203, prefix: 'HHM', place: 'Hohenmölsen (SaAn)'},
+                           {id: 204, prefix: 'HI', place: 'Hildesheim (NiSa)'},
+                           {id: 205, prefix: 'HIG', place: 'Heiligenstadt (Thür)'},
+                           {id: 206, prefix: 'HL', place: 'Hansestadt Lübeck (SlHo)'},
+                           {id: 207, prefix: 'HM', place: 'Hameln-Pyrmont (NiSa)'},
+                           {id: 208, prefix: 'HN', place: 'Heilbronn/Neckar (BaWü)'},
+                           {id: 209, prefix: 'HO', place: 'Hof/Saale (Bayern)'},
+                           {id: 210, prefix: 'HOL', place: 'Holzminden (NiSa)'},
+                           {id: 211, prefix: 'HOM', place: 'Saar-Pfalz-Kreis in Homburg/Saar (Saar)'},
+                           {id: 212, prefix: 'HOT', place: 'Hohenstein-Ernstthal (Sachs)'},
+                           {id: 213, prefix: 'HP', place: 'Bergstraße in Heppenheim (Hess)'},
+                           {id: 214, prefix: 'HR', place: 'Schwalm-Eder-Kreis in Homberg (Hess)'},
+                           {id: 215, prefix: 'HRO', place: 'Hansestadt Rostock (MeVo)'},
+                           {id: 216, prefix: 'HS', place: 'Heinsberg (NrWe)'},
+                           {id: 217, prefix: 'HSK', place: 'Hochsauerlandkreis in Meschede (NrWe)'},
+                           {id: 218, prefix: 'HST', place: 'Hansestadt Stralsund (MeVo)'},
+                           {id: 219, prefix: 'HU', place: 'Hanau Main-Kinzig-Kreis (Hess)'},
+                           {id: 300, prefix: 'HV', place: 'Havelberg (SaAn)'},
+
+                           {id: 301, prefix: 'HVL', place: 'Havelland (Brandenburg)'},
+                           {id: 302, prefix: 'HWI', place: 'Hansestadt Wismar (MeVo)'},
+                           {id: 303, prefix: 'HX', place: 'Höxter (NrWe)'},
+                           {id: 304, prefix: 'HY', place: 'Hoyerswerda (Sachs)'},
+                           {id: 305, prefix: 'HZ', place: 'Herzberg (Brandenburg)'},
+                           {id: 306, prefix: 'IGB', place: 'St. Ingbert (Saar)'},
+                           {id: 307, prefix: 'IK', place: 'Ilm-Kreis (Thür)'},
+                           {id: 308, prefix: 'IL', place: 'Ilmenau (Thür)'},
+                           {id: 309, prefix: 'IN', place: 'Ingolstadt/Donau (Bayern)'},
+                           {id: 310, prefix: 'IZ', place: 'Itzehoe (SlHo)'},
+                           {id: 311, prefix: 'J', place: 'Jena (Thür)'},
+                           {id: 312, prefix: 'JB', place: 'Jüterbog (Brandenburg)'},
+                           {id: 313, prefix: 'JE', place: 'Jessen (SaAn)'},
+                           {id: 314, prefix: 'JL', place: 'Jerichower Land (SaAn)'},
+                           {id: 315, prefix: 'K', place: 'Köln (NrWe)'},
+                           {id: 316, prefix: 'KA', place: 'Karlsruhe (BaWü)'},
+                           {id: 317, prefix: 'KB', place: 'Waldeck-Frankenberg in Korbach (Hess)'},
+                           {id: 318, prefix: 'KC', place: 'Kronach (Bayern)'},
+                           {id: 319, prefix: 'KE', place: 'Kempten/Allgäu (Bayern)'},
+                           {id: 320, prefix: 'KEH', place: 'Kelheim (Bayern)'},
+
+                           {id: 321, prefix: 'KEL', place: 'Kehl, Baden-Württemberg'},
+                           {id: 322, prefix: 'KEM', place: 'Kemnath, Bavaria'},
+                           {id: 323, prefix: 'KF', place: 'Kaufbeuren, Bavaria'},
+                           {id: 324, prefix: 'KG', place: 'Bad Kissingen, Bavaria'},
+                           {id: 325, prefix: 'KH', place: 'Bad Kreuznach, Rhineland Palatinate'},
+                           {id: 326, prefix: 'KI', place: 'Kiel, Schleswig-Holstein'},
+                           {id: 327, prefix: 'KIB', place: 'Kirchheimbolanden & Donnersbergkreis, Rhineland Palatinate'},
+                           {id: 328, prefix: 'KK', place: 'Kempen-Krefeld, North-Rhine-Westphalia'},
+                           {id: 329, prefix: 'KL', place: 'Kaiserslauten, Rhineland Palatinate'},
+                           {id: 330, prefix: 'KLE', place: 'Cleves (Kleve), North-Rhine-Westphalia'},
+                           {id: 331, prefix: 'KLT', place: 'Klingental, Saxony'},
+                           {id: 332, prefix: 'KLZ', place: 'Klötze, Saxony Anhalt'},
+                           {id: 333, prefix: 'KM', place: 'Kamenz, Saxony'},
+                           {id: 334, prefix: 'KN', place: 'Constance (Konstanz), Baden-Württemberg'},
+                           {id: 335, prefix: 'KO', place: 'Koblenz, Rhineland Palatinate'},
+                           {id: 336, prefix: 'KöN', place: 'Kötzting, Bavaria'},
+                           {id: 337, prefix: 'KöT', place: 'Köthen, Saxony-Anhalt'},
+                           {id: 338, prefix: 'KOZ', place: 'Kotzting'},
+                           {id: 339, prefix: 'KR', place: 'Krefeld, North-Rhine-Westphalia'},
+                           {id: 340, prefix: 'KRU', place: 'Krumbach, Bavaria'},
+
+                           {id: 341, prefix: 'KS', place: 'Kassel, Hesse'},
+                           {id: 342, prefix: 'KT', place: 'Kitzingen, Bavaria'},
+                           {id: 343, prefix: 'KU', place: 'Kulmbach, Bavaria'},
+                           {id: 344, prefix: 'KüN', place: 'Küzelsau & Hohenlohekreis, Baden-Württemberg'},
+                           {id: 345, prefix: 'KUS', place: 'Kusel, Rhineland Palatinate'},
+                           {id: 346, prefix: 'KW', place: 'Königs-Wusterhausen, Brandenburg'},
+                           {id: 347, prefix: 'KY', place: 'Kyritz, Brandenburg'},
+                           {id: 348, prefix: 'KYF', place: 'Kyffhäuserkreis, Thuringia'},
+                           {id: 349, prefix: 'L', place: 'Leipzig, Saxony'},
+                           {id: 350, prefix: 'LA', place: 'Landshut, Bavaria'},
+                           {id: 351, prefix: 'LAN', place: 'Landau Isar, Bavaria'},
+                           {id: 352, prefix: 'LAT', place: 'Lauterbach, Hesse'},
+                           {id: 353, prefix: 'LAU', place: 'Lauf an der Pegnitz & Nürnberger Land, Bavaria'},
+
+                           {id: 354, prefix: 'LB', place: 'Ludwigsburg, Baden-Württemberg'},
+                           {id: 355, prefix: 'LBS', place: 'Lobenstein, Thuringia'},
+                           {id: 356, prefix: 'LBZ', place: 'Lübz, Mecklenburg-Vorpommern'},
+                           {id: 357, prefix: 'LC', place: 'Luckau, Brandenburg'},
+                           {id: 358, prefix: 'LD', place: 'Landau in der Pfalz, Rhineland Palatinate'},
+                           {id: 359, prefix: 'LDK', place: 'Lahn-Dill-Kreis, Hesse'},
+                           {id: 360, prefix: 'LDS', place: 'Landkreis Dahme-Spreewald, Brandenburg'},
+                           {id: 361, prefix: 'LE', place: 'Lemgo, North-Rhine-Westphalia'},
+                           {id: 362, prefix: 'LEO', place: 'Leonberg, Baden-Württemberg'},
+                           {id: 363, prefix: 'LER', place: 'Leer (Ostfriesland), Lower Saxony'},
+                           {id: 364, prefix: 'LEV', place: 'Leverkusen, North-Rhine-Westphalia'},
+                           {id: 365, prefix: 'LF', place: 'Laufen, Bavaria'},
+                           {id: 366, prefix: 'LG', place: 'Lüneburg, Lower Saxony'},
+                           {id: 367, prefix: 'LH', place: 'Lüdinghausen, North-Rhine-Westphalia'},
+                           {id: 368, prefix: 'LI', place: 'Lindau (Bodensee), Bavaria'},
+                           {id: 374, prefix: 'LIB', place: 'Bad Liebenwerda, Brandenburg'},
+                           {id: 369, prefix: 'LIF', place: 'Lichtenfels, Bavaria'},
+                           {id: 370, prefix: 'LIN', place: 'Lingen, Lower Saxony'},
+                           {id: 371, prefix: 'LIP', place: 'Lippe, North-Rhine-Westphalia'},
+                           {id: 372, prefix: 'LK', place: 'Lübbecke, North-Rhine-Westphalia'},
+                           {id: 373, prefix: 'LL', place: 'Landsberg am Lech, Bavaria'},
+                           {id: 374, prefix: 'LM', place: 'Limburg-Weilburg, Hesse'},
+
+
+
+
+
+
+
+
+
+
+
+
+                           ];
+        
+            var autoPrefix = prompt ('Please enter German automobile prefix here (A-L)', 'B');
+            
+            //var result = 0;
+            var field1 = document.getElementById('field1');
+            field1.innerHTML = autoPrefix;
+            console.log(field1);
+
+
+            var res = document.getElementById('res');
+            console.log(res);
+            res.innerHTML = '';
+            
+
+            function region(prefix) {
+                var result = 0;
+                for (var i = 0; i < catalog.length; i++) {
+                    if  (catalog[i].prefix == autoPrefix) {
+                        result = catalog[i].place;
+                    }
+                    // else {
+                    //     result = "Sorry, we don't have this prefix in the list."
+                    // }
+                    res.innerHTML = result;
+                    console.log(result);
+                }
+            }
+            region();
+        </script>
+</body>
+</html>
